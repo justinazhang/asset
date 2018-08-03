@@ -77,7 +77,7 @@ if env['hdf5'] != False:
     env.AppendUnique( CPPPATH=[ env['hdf5']+'/include'] )
     env.AppendUnique( LIBPATH=[ env['hdf5']+'/lib']     )
   conf.CheckLibWithHeaderFlags( 'hdf5' )
-  conf.CheckLibWithHeaderFlags( 'hdf5_hl' )
+  conf.CheckLibWithHeaderFlags( 'hdf5_hl')
 
 
 # enable NetCDF if available
