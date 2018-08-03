@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  @file This file is part of EDGE.
+
+  @author Alexander Breuer (anbreuer AT ucsd.edu)
+
+  @section LICENSE
+  Copyright (c) 2017-2018, Regents of the University of California
+  All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  @section DESCRIPTION
+  Configuration for the Gaussian hill-canyon benchmark.
+-->
+<edge>
+  <build>
+    <element_type>tria3</element_type>
+    <equations>elastic</equations>
+    <moab>yes</moab>
+  </build>
+
+  <cfr>
+    <mesh>
+      <files>
+        <in>ghcan_2d_5000_500.msh</in>
+      </files>
+      <options>
+        <read>;</read>
+      </options>
+      <boundary>
+        <free_surface>101</free_surface>
+        <outflow>105</outflow>
+      </boundary>
+    </mesh>
+
+   <velocity_model>
+     <domain>
+       <half_space>
+         <origin>
+           <x>0</x>
+           <y>9999</y>
+         </origin>
+         <normal>
+           <x> 0</x>
+           <y>-1</y>
+         </normal>
+       </half_space>
+
+       <rho>2800</rho>
+       <lambda>1.7136000000000000E10</lambda>
+       <mu>4.0320000000000000E9</mu>
+     </domain>
+   </velocity_model>
+
+    <setups>
+      <kinematic_sources>
+        <file>ricker_elastic.nc</file>
+      </kinematic_sources>
+
+      <end_time>20.0</end_time>
+    </setups>
+
+    <output>
+      <receivers>
+        <path_to_dir>ghcan_2d_elastic_recvs_5000_500</path_to_dir>
+        <freq>0.01</freq>
+
+        <!--
+          Wolfram Alpha: 2000 * exp( -(5000 - 10000)^2 / 3000^2 ) = 124.3530..
+        -->
+        <receiver>
+          <name>ghcan_2d_-05_00</name>
+          <coords>
+            <x>-5000</x>
+            <y>124.0</y>
+          </coords>
+        </receiver>
+
+        <receiver>
+          <name>ghcan_2d_-10_02</name>
+          <coords>
+            <x>-10000</x>
+            <y>1999</y>
+          </coords>
+        </receiver>
+
+        <receiver>
+          <name>ghcan_2d_-15_00</name>
+          <coords>
+            <x>-15000</x>
+            <y>124.0</y>
+          </coords>
+        </receiver>
+        <receiver>
+          <name>ghcan_2d_05_-00</name>
+          <coords>
+            <x>5000</x>
+            <y>-124.0</y>
+          </coords>
+        </receiver>
+
+        <receiver>
+          <name>ghcan_2d_10_-02</name>
+          <coords>
+            <x>10000</x>
+            <y>-1999</y>
+          </coords>
+        </receiver>
+
+        <receiver>
+          <name>ghcan_2d_15_-00</name>
+          <coords>
+            <x>15000</x>
+            <y>-124.0</y>
+          </coords>
+        </receiver>
+        <receiver>
+          <name>ghcan_2d_00_-05</name>
+          <coords>
+            <x>0</x>
+            <y>-5000</y>
+          </coords>
+        </receiver>
+        <receiver>
+          <name>ghcan_2d_00_-10</name>
+          <coords>
+            <x>0</x>
+            <y>-10000</y>
+          </coords>
+        </receiver>
+        <receiver>
+          <name>ghcan_2d_00_-15</name>
+          <coords>
+            <x>0</x>
+            <y>-15000</y>
+          </coords>
+        </receiver>
+        <receiver>
+          <name>ghcan_2d_00_-20</name>
+          <coords>
+            <x>0</x>
+            <y>-20000</y>
+          </coords>
+        </receiver>
+      </receivers>
+
+      <wave_field>
+        <type>vtk_binary</type>
+        <file>ghcan_2d_elastic_wf_5000_500/wave_field</file>
+        <int>0.1</int>
+      </wave_field>
+    </output>
+  </cfr>
+</edge>
