@@ -1,1 +1,0 @@
-CPPFLAGS=-I/root/edge/netcdf/../libs/include CC=mpicc CFLAGS= LDFLAGS=-L/root/edge/netcdf/../libs/lib LIBS=

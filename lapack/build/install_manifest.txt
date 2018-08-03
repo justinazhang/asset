@@ -1,8 +1,0 @@
-/root/edge/lapack/build/../../libs/lib/cmake/lapack-3.8.0/lapack-targets.cmake
-/root/edge/lapack/build/../../libs/lib/cmake/lapack-3.8.0/lapack-targets-release.cmake
-/root/edge/lapack/build/../../libs/lib/pkgconfig/lapack.pc
-/root/edge/lapack/build/../../libs/lib/cmake/lapack-3.8.0/lapack-config.cmake
-/root/edge/lapack/build/../../libs/lib/cmake/lapack-3.8.0/lapack-config-version.cmake
-/root/edge/lapack/build/../../libs/lib/pkgconfig/blas.pc
-/root/edge/lapack/build/../../libs/lib/libblas.a
-/root/edge/lapack/build/../../libs/lib/liblapack.a
