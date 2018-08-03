@@ -1,0 +1,35 @@
+# NetCDF C Configuration Summary
+==============================
+
+# General
+-------
+NetCDF Version:		4.4.1.1
+Configured On:		Fri Aug  3 20:36:07 UTC 2018
+Host System:		x86_64-unknown-linux-gnu
+Build Directory: 	/root/edge/netcdf
+Install Prefix:         /root/edge/netcdf/../libs
+
+# Compiling Options
+-----------------
+C Compiler:		/usr/bin/mpicc
+CFLAGS:			
+CPPFLAGS:		-I/root/edge/netcdf/../libs/include
+LDFLAGS:		-L/root/edge/netcdf/../libs/lib
+AM_CFLAGS:		
+AM_CPPFLAGS:		
+AM_LDFLAGS:		
+Shared Library:		no
+Static Library:		yes
+Extra libraries:	-lhdf5_hl -lhdf5 -ldl -lm -lz 
+
+# Features
+--------
+NetCDF-2 API:		yes
+HDF4 Support:		no
+NetCDF-4 API:		yes
+NC-4 Parallel Support:	yes
+PNetCDF Support:	no
+DAP Support:		no
+Diskless Support:	yes
+MMap Support:		no
+JNA Support:		no

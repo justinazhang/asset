@@ -1,0 +1,9 @@
+/root/edge/lapack/build/INSTALL/CMakeFiles/rebuild_cache.dir
+/root/edge/lapack/build/INSTALL/CMakeFiles/edit_cache.dir
+/root/edge/lapack/build/INSTALL/CMakeFiles/secondtst_EXT_ETIME_.dir
+/root/edge/lapack/build/INSTALL/CMakeFiles/testversion.dir
+/root/edge/lapack/build/INSTALL/CMakeFiles/secondtst_INT_ETIME.dir
+/root/edge/lapack/build/INSTALL/CMakeFiles/secondtst_INT_CPU_TIME.dir
+/root/edge/lapack/build/INSTALL/CMakeFiles/secondtst_EXT_ETIME.dir
+/root/edge/lapack/build/INSTALL/CMakeFiles/secondtst_NONE.dir
+/root/edge/lapack/build/INSTALL/CMakeFiles/testieee.dir
