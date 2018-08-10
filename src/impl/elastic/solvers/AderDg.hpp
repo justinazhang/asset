@@ -687,19 +687,19 @@ class edge::elastic::solvers::AderDg {
     static void neigh( TL_T_INT_LID            i_first,
                        TL_T_INT_LID            i_nElements,
                        TL_T_INT_LID            i_firstSpRp,
-                       t_dg           const  & i_dg,
-                       t_faceChars    const  * i_faChars,
-                       t_fluxSolver   const (* i_fluxSolvers)[ C_ENT[T_SDISC.ELEMENT].N_FACES ],
+                       t_dg             & i_dg,
+                       t_faceChars      * i_faChars,
+                       t_fluxSolver    (* i_fluxSolvers)[ C_ENT[T_SDISC.ELEMENT].N_FACES ],
                        TL_T_INT_LID   const (* i_elFa)[C_ENT[T_SDISC.ELEMENT].N_FACES],
                        TL_T_INT_LID   const (* i_elFaEl)[C_ENT[T_SDISC.ELEMENT].N_FACES],
                        TL_T_INT_LID  const  (* i_faElSpRp)[2],
                        TL_T_INT_LID  const  (* i_elFaSpRp)[C_ENT[T_SDISC.ELEMENT].N_FACES],
                        unsigned short const (* i_fIdElFaEl)[C_ENT[T_SDISC.ELEMENT].N_FACES],
                        unsigned short const (* i_vIdElFaEl)[C_ENT[T_SDISC.ELEMENT].N_FACES],
-                       TL_T_REAL      const (* i_tInt)[N_QUANTITIES][N_ELEMENT_MODES][N_CRUNS],
-                       TL_T_REAL      const (* i_updatesSpRp)[2][N_QUANTITIES][N_ELEMENT_MODES][N_CRUNS],
+                       TL_T_REAL       (* i_tInt)[N_QUANTITIES][N_ELEMENT_MODES][N_CRUNS],
+                       TL_T_REAL       (* i_updatesSpRp)[2][N_QUANTITIES][N_ELEMENT_MODES][N_CRUNS],
                        TL_T_REAL            (* io_dofs)[N_QUANTITIES][N_ELEMENT_MODES][N_CRUNS],
-                       TL_T_MM const         & i_mm ) {
+                       TL_T_MM          & i_mm ) {
 #if __has_builtin(__builtin_assume_aligned)
       // share alignment with compiler
       (void) __builtin_assume_aligned(i_tInt,  ALIGNMENT.ELEMENT_MODES.PRIVATE);

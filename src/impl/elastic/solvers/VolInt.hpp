@@ -114,10 +114,11 @@ class edge::elastic::solvers::VolInt {
                               TL_T_REAL                               io_dofs[TL_N_QTS][TL_N_MDS][TL_N_CRS],
                               TL_T_REAL                               o_scratch[TL_N_QTS][TL_N_MDS][TL_N_CRS] ) {
       // iterate over dimensions
-      crop(i_tDofs[0][0]);
+
       for( unsigned short l_di = 0; l_di < TL_N_DIS; l_di++ ) {
         // multiply with stiffness and inverse mass matrix
-        
+        crop(io_dofs[0][0]);
+        crop(i_tDofs[0][0]);
         i_mm.m_kernels[((TL_O_SP-1)*2)]( (i_stiff[l_di][0]),
                                          i_tDofs[0][0],
                                          o_scratch[0][0] );
@@ -125,8 +126,9 @@ class edge::elastic::solvers::VolInt {
         i_mm.m_kernels[((TL_O_SP-1)*2)+1]( o_scratch[0][0],
                                            (i_jac[l_di][0]),
                                            io_dofs[0][0] );
-      }
-      crop(i_tDofs[0][0]);
+        crop(io_dofs[0][0]);
+         
+      }    
     }
 #endif
 
@@ -149,7 +151,7 @@ class edge::elastic::solvers::VolInt {
                               TL_T_REAL                                     io_dofs[TL_N_QTS][TL_N_MDS][TL_N_CRS],
                               TL_T_REAL                                     o_scratch[TL_N_QTS][TL_N_MDS][TL_N_CRS] ) {
       // iterate over dimensions
-      crop(i_tDofs[0][0]);
+      
       for( unsigned short l_di = 0; l_di < TL_N_DIS; l_di++ ) {
         // multiply with star matrix
         i_mm.m_kernels[(TL_O_SP-1)*(TL_N_DIS+1)+TL_N_DIS]( i_jac[l_di],
@@ -161,7 +163,7 @@ class edge::elastic::solvers::VolInt {
                                                        i_stiff[l_di],                                  
                                                        io_dofs[0][0] );
       }
-      crop(i_tDofs[0][0]);
+  
     }
 #endif
 

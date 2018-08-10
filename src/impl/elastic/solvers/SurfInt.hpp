@@ -149,12 +149,14 @@ class edge::elastic::solvers::SurfInt {
                             TL_T_REAL                       const   i_dofsP[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS] = nullptr,
                             unsigned short                          i_fId = std::numeric_limits< unsigned short >::max() ) {
       EDGE_LOG_FATAL << "TODO";
+     
       i_mm.m_kernels[((TL_O_TI-1)*2)+3]( i_fInt[0],
                                          i_tDofs[0][0],
                                          o_scratch[0][0] );
       i_mm.m_kernels[((TL_O_TI-1)*2)+4]( o_scratch[0][0],
                                          i_fSol[0],
                                          io_dofs[0][0] );
+
   
     }
 #endif
@@ -201,6 +203,7 @@ class edge::elastic::solvers::SurfInt {
         i_mm.m_kernels[((TL_O_TI-1)*2)+4]( o_scratch[1][0][0],
                                            i_fIntT[l_fa][0],
                                            io_dofs[0][0] );
+       
      
       }
     }
@@ -226,33 +229,38 @@ class edge::elastic::solvers::SurfInt {
     static void inline local( TL_T_REAL                         i_fIntL[TL_N_FAS][TL_N_MDS_EL][TL_N_MDS_FA],
                               TL_T_REAL                         i_fIntT[TL_N_FAS][TL_N_MDS_FA][TL_N_MDS_EL],
                               TL_T_REAL                       i_fSol[TL_N_FAS][TL_N_QTS][TL_N_QTS],
-                              TL_T_REAL                       const   i_tDofs[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS],
+                              TL_T_REAL                         i_tDofs[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS],
                               data::MmXsmmSingle< TL_T_REAL > const & i_mm,
                               TL_T_REAL                               io_dofs[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS],
                               TL_T_REAL                               o_scratch[2][TL_N_QTS][TL_N_MDS_FA][TL_N_CRS],
                               TL_T_REAL                       const   i_dofsP[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS],
                               TL_T_REAL                       const   i_tDofsP[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS] ) {
       // iterate over faces
-      crop(io_dofs[0][0]);
+      
       for( unsigned short l_fa = 0; l_fa < TL_N_FAS; l_fa++ ) {
+        //crop(io_dofs[0][0]);
+        crop(i_tDofs[0][0]);
         i_mm.m_kernels[((TL_O_TI-1)*2)+2]( i_fIntL[l_fa][0],
                                            i_tDofs[0][0],
                                            o_scratch[0][0][0],
                                            nullptr,
                                            i_dofsP[0][0],
                                            nullptr );
+        //crop(i_fSol[l_fa][0]);
         i_mm.m_kernels[((TL_O_TI-1)*2)+3]( o_scratch[0][0][0],
                                            i_fSol[l_fa][0],
                                            o_scratch[1][0][0] );
-    
+       
+       
         i_mm.m_kernels[((TL_O_TI-1)*2)+4]( i_fIntT[l_fa][0],
                                            o_scratch[1][0][0],
                                            io_dofs[0][0],
                                            nullptr,
                                            i_tDofsP[0][0],
                                            nullptr );
-  
-      }crop(io_dofs[0][0]);
+        //crop(io_dofs[0][0]);
+        
+      }
     }
 #endif
 
@@ -370,8 +378,8 @@ class edge::elastic::solvers::SurfInt {
     template< typename TL_T_REAL >
     static void inline neigh( TL_T_REAL                       const   i_fIntLN[TL_N_MDS_EL][TL_N_MDS_FA],
                               TL_T_REAL                       const   i_fIntT[TL_N_MDS_FA][TL_N_MDS_EL],
-                              TL_T_REAL                       const   i_fSol[TL_N_QTS][TL_N_QTS],
-                              TL_T_REAL                       const   i_tDofs[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS],
+                              TL_T_REAL                          i_fSol[TL_N_QTS][TL_N_QTS],
+                              TL_T_REAL                          i_tDofs[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS],
                               data::MmXsmmSingle< TL_T_REAL > const & i_mm,
                               TL_T_REAL                               io_dofs[TL_N_QTS][TL_N_MDS_EL][TL_N_CRS],
                               TL_T_REAL                               o_scratch[2][TL_N_QTS][TL_N_MDS_FA][TL_N_CRS],
@@ -380,6 +388,7 @@ class edge::elastic::solvers::SurfInt {
                               unsigned short                          i_fId = std::numeric_limits< unsigned short >::max() ) {
       // multiply with first face integration matrix
       crop(io_dofs[0][0]);
+      crop(i_tDofs[0][0]);
       i_mm.m_kernels[((TL_O_TI-1)*2)+2]( i_fIntLN[0],
                                          i_tDofs[0][0],
                                          o_scratch[0][0][0],
@@ -388,6 +397,7 @@ class edge::elastic::solvers::SurfInt {
                                          nullptr );
 
       // multiply with flux solver
+      crop(i_fSol[0]);
       i_mm.m_kernels[((TL_O_TI-1)*2)+3]( o_scratch[0][0][0],
                                          i_fSol[0],
                                          o_scratch[1][0][0] );
@@ -431,6 +441,7 @@ class edge::elastic::solvers::SurfInt {
                               unsigned short                          i_fa,
                               unsigned short                          i_fId ) {
       // local or neighboring flux matrix
+      
       i_mm.m_kernels[TL_O_TI*(TL_N_DIS+1)+i_fId]( i_tDofs[0][0],
                                                   i_fIntLN,
                                                   o_scratch[0][0][0] );
@@ -447,6 +458,7 @@ class edge::elastic::solvers::SurfInt {
       i_mm.m_kernels[TL_O_TI*(TL_N_DIS+1)+TL_N_FAS+TL_N_FMNS+i_fa]( o_scratch[1][0][0],
                                                                     i_fIntT,
                                                                     io_dofs[0][0] );
+       
     }
 #endif
 

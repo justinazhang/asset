@@ -260,8 +260,8 @@ class edge::elastic::solvers::TimePred {
      **/
     template <typename TL_T_REAL >
     static void inline ck( TL_T_REAL                               i_dT,
-                           TL_T_REAL                       const   i_stiffT[TL_N_DIM][TL_N_MDS][TL_N_MDS],
-                           TL_T_REAL                       const   i_star[TL_N_DIM][TL_N_QTS][TL_N_QTS],
+                           TL_T_REAL                          i_stiffT[TL_N_DIM][TL_N_MDS][TL_N_MDS],
+                           TL_T_REAL                          i_star[TL_N_DIM][TL_N_QTS][TL_N_QTS],
                            TL_T_REAL                       const   i_dofs[TL_N_QTS][TL_N_MDS][1],
                            data::MmXsmmSingle< TL_T_REAL > const & i_mm,
                            TL_T_REAL                               o_scratch[TL_N_QTS][TL_N_MDS][1],
@@ -288,15 +288,17 @@ class edge::elastic::solvers::TimePred {
 
         // compute the derivatives
         for( unsigned short l_di = 0; l_di < TL_N_DIM; l_di++ ) {
-          // multiply with transposed stiffness matrices and inverse mass matrix
+          // multiply with transposed stiffness matrices and inverse mass matrixc
+          crop(&o_tInt[l_di][0][0]);
           i_mm.m_kernels[(l_de-1)*2]( i_stiffT[l_di][0],
                                       o_der[l_de-1][0][0],
                                       o_scratch[0][0] );
           // multiply with star matrices
+          crop(&i_star[l_di][0][0]);
           i_mm.m_kernels[((l_de-1)*2)+1]( o_scratch[0][0],
                                           i_star[l_di][0],
                                           o_der[l_de][0][0] );
-        }
+         }
 
         // update scalar
         l_scalar *= -i_dT / (l_de+1);
