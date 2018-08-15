@@ -238,7 +238,7 @@ class edge::elastic::solvers::SurfInt {
       // iterate over faces
       
       for( unsigned short l_fa = 0; l_fa < TL_N_FAS; l_fa++ ) {
-        //crop(io_dofs[0][0]);
+        crop(io_dofs[0][0]);
         crop(i_tDofs[0][0]);
         i_mm.m_kernels[((TL_O_TI-1)*2)+2]( i_fIntL[l_fa][0],
                                            i_tDofs[0][0],
@@ -246,7 +246,7 @@ class edge::elastic::solvers::SurfInt {
                                            nullptr,
                                            i_dofsP[0][0],
                                            nullptr );
-        //crop(i_fSol[l_fa][0]);
+        crop(i_fSol[l_fa][0]);
         i_mm.m_kernels[((TL_O_TI-1)*2)+3]( o_scratch[0][0][0],
                                            i_fSol[l_fa][0],
                                            o_scratch[1][0][0] );
@@ -258,7 +258,7 @@ class edge::elastic::solvers::SurfInt {
                                            nullptr,
                                            i_tDofsP[0][0],
                                            nullptr );
-        //crop(io_dofs[0][0]);
+        crop(io_dofs[0][0]);
         
       }
     }
